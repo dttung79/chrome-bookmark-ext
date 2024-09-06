@@ -136,3 +136,11 @@ function editBookmark(bookmark) {
         height: 400
     });
 }
+// Delete bookmark
+function deleteBookmark(bookmarkId) {
+    chrome.runtime.sendMessage({ action: 'deleteBookmark', bookmarkId }, (response) => {
+        if (response.success) {
+            displayCategories();
+        }
+    });
+}
