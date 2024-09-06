@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookmark Manager</title>
+    <link rel="stylesheet" href="popup.css">
+    <!-- Font Awesome for Edit and Delete Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <!-- Main Menu -->
+    <div id="main">
+        <h1>Bookmark Manager</h1>
+        <button id="browse-categories-btn" class="menu-btn">Browse Categories</button>
+        <button id="add-category-btn" class="menu-btn">Add Category</button>
+        <button id="search-btn" class="menu-btn">Search Bookmarks</button>
+    </div>
+
+    <!-- Browse Categories Section -->
+    <div id="browse-categories" class="hidden">
+        <h2>Browse Categories</h2>
+        <ul id="category-list"></ul>
+        <button id="back-btn">Back</button>
+    </div>
+
+    <!-- Add Category Section -->
+    <div id="add-category" class="hidden">
+        <h2>Add Category</h2>
+        <input type="text" id="new-category-name" placeholder="Category name" />
+        <button id="add-category-submit">Add</button>
+        <button id="back-btn-add">Back</button>
+        <p id="error-msg" class="hidden">Category name is required or already exists!</p>
+    </div>
+
+    <!-- Search Section -->
+    <div id="search-bookmarks" class="hidden">
+        <h2>Search Bookmarks</h2>
+        <input type="text" id="search-tags" placeholder="Enter tags (separated by space)" />
+        <ul id="search-results"></ul>
+        <button id="back-btn-search">Back</button>
+    </div>
+    <script src="utilities.js"></script> <!-- Must come first -->
+    <script src="bookmarkOperations.js"></script>
+    <script src="categoryOperations.js"></script>
+    <script src="popup.js"></script>
+</body>
+</html>

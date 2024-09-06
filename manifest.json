@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Bookmark Manager",
+  "description": "A Chrome extension to manage bookmarks with categories and tags.",
+  "version": "1.0",
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Bookmark Manager"
+  },
+  "commands": {
+    "bookmark-current-page": {
+      "suggested_key": {
+        "default": "Ctrl+E", 
+        "mac": "Command+E" 
+      },
+      "description": "Bookmark the current page"
+    }
+  },
+  "options_page": "settings.html",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

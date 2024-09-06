@@ -1,0 +1,83 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 10px;
+    padding: 0;
+    background-color: #f0f0f0;
+  }
+  
+  /* Popup container */
+  #popup-container {
+    width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  
+  /* Search input */
+  #search-container {
+    margin-bottom: 10px;
+  }
+  
+  #search-input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+  
+  /* Categories and Bookmarks */
+  #categories-container, #bookmarks-container {
+    margin-bottom: 15px;
+  }
+  
+  h3 {
+    font-size: 16px;
+    margin: 10px 0;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    padding: 5px 0;
+    cursor: pointer;
+  }
+  
+  li span {
+    cursor: pointer;
+  }
+  
+  /* Options page */
+  #shortcut-setting {
+    margin-bottom: 20px;
+  }
+  
+  #shortcut-input {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+  
+  button {
+    padding: 8px 12px;
+    font-size: 14px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  #message {
+    margin-top: 10px;
+    font-size: 14px;
+    color: green;
+  }
+  

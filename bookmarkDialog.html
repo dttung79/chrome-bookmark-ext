@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Bookmark</title>
+    <link rel="stylesheet" href="dialog.css">
+</head>
+<body>
+    <div id="bookmark-dialog">
+        <h2>Add Bookmark</h2>
+        <form id="bookmark-form">
+            <label for="bookmark-name">Name:</label>
+            <input type="text" id="bookmark-name" name="bookmark-name" />
+
+            <label for="bookmark-category">Category:</label>
+            <select id="bookmark-category" name="bookmark-category"></select>
+
+            <label for="bookmark-tags">Tags:</label>
+            <input type="text" id="bookmark-tags" name="bookmark-tags" placeholder="Enter tags separated by space" />
+
+            <button type="submit">Save Bookmark</button>
+        </form>
+    </div>
+
+    <script src="bookmarkDialog.js"></script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+/* General styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 10px;
+    background-color: #f4f4f4;
+}
+
+h1, h2 {
+    color: #2c3e50;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.menu-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+    color: white;
+    background-color: #3498db;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.menu-btn:hover {
+    background-color: #2980b9;
+}
+
+/* Form input styling */
+input[type="text"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #27ae60;
+}
+
+#category-list, #search-results {
+    list-style-type: none;
+    padding: 0;
+}
+
+#category-list li, #search-results li {
+    padding: 10px;
+    background-color: #ecf0f1;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+#category-list li:hover, #search-results li:hover {
+    background-color: #bdc3c7;
+}
+
+#error-msg {
+    color: red;
+    text-align: center;
+    font-size: 14px;
+}
+/* Bookmark items should look like hyperlinks */
+.bookmark-item a {
+    text-decoration: none;
+    color: #3498db;
+    cursor: pointer;
+}
+
+.bookmark-item a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+/* Highlight the entire bookmark item when hovered */
+.bookmark-item:hover {
+    background-color: #ecf0f1; /* Light gray background on hover */
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+/* Bookmark item link styles */
+.bookmark-item a {
+    text-decoration: none;
+    color: #3498db;
+    cursor: pointer;
+    display: inline-block;
+    white-space: nowrap;  /* Prevent the text from wrapping */
+    overflow: hidden;     /* Hide the overflow */
+    text-overflow: ellipsis; /* Show "..." for overflowing text */
+    max-width: 100%;      /* Ensure the width adjusts to the container */
+}
+
+.bookmark-item a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+/* Highlight the entire bookmark item when hovered */
+.bookmark-item:hover {
+    background-color: #ecf0f1; /* Light gray background on hover */
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+/* Ensure the bookmark item and buttons are aligned in a single line */
+.bookmark-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.bookmark-item:hover {
+    background-color: #ecf0f1; /* Highlight background on hover */
+}
+
+.bookmark-item a {
+    flex-grow: 1;
+    text-decoration: none;
+    color: #3498db;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 10px;
+}
+
+.bookmark-item a:hover {
+    text-decoration: underline;
+}
+
+.bookmark-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.bookmark-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #7f8c8d;
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+}
+
+.bookmark-actions button:hover {
+    color: #2c3e50; /* Darken on hover */
+}
