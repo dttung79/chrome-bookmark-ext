@@ -12,19 +12,21 @@ chrome.runtime.onInstalled.addListener(() => {
 
 // Listen for shortcut to bookmark the current page
 chrome.commands.onCommand.addListener((command) => {
-  if (command === "bookmark-current-page") {
-      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-          let activeTab = tabs[0];
-          chrome.storage.sync.get(['categories'], (data) => {
-              chrome.windows.create({
-                  url: "bookmarkDialog.html?title=" + encodeURIComponent(activeTab.title) + "&url=" + encodeURIComponent(activeTab.url),
-                  type: "popup",
-                  width: 400,
-                  height: 400
-              });
-          });
-      });
-  }
+    if (command === "bookmark-current-page") {
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            let activeTab = tabs[0];
+            let url = new URL(activeTab.url);
+            let author = url.pathname.split('/')[1]; // Extract the author from the URL
+            chrome.storage.sync.get(['categories'], (data) => {
+                chrome.windows.create({
+                    url: `bookmarkDialog.html?title=${encodeURIComponent(activeTab.title)}&url=${encodeURIComponent(activeTab.url)}&author=${encodeURIComponent(author)}`,
+                    type: "popup",
+                    width: 400,
+                    height: 400
+                });
+            });
+        });
+    }
 });
 
 // Handle bookmark deletion
@@ -53,4 +55,13 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       });
       return true;
   }
+
+  if (message.action === 'resizePopup' && categoriesWindowId) {
+      chrome.windows.update(categoriesWindowId, {
+          width: message.width,
+          height: message.height
+      });
+  }
 });
+
+let categoriesWindowId = null;

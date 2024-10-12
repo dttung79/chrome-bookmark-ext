@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const bookmarkNameInput = document.getElementById("edit-bookmark-name");
     const bookmarkCategorySelect = document.getElementById("edit-bookmark-category");
     const bookmarkTagsInput = document.getElementById("edit-bookmark-tags");
+    const bookmarkAuthorInput = document.getElementById("edit-bookmark-author"); // New input for author
     const editBookmarkForm = document.getElementById("edit-bookmark-form");
 
     // Populate categories into the dropdown
@@ -26,6 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 bookmarkNameInput.value = bookmark.name;
                 bookmarkCategorySelect.value = category.name;
                 bookmarkTagsInput.value = bookmark.tags.join("; ");
+                bookmarkAuthorInput.value = bookmark.author; // Populate author field
             }
         });
     });
@@ -38,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
             name: bookmarkNameInput.value,
             tags: bookmarkTagsInput.value.split(';').map(tag => tag.trim()),
             category: bookmarkCategorySelect.value,
+            author: bookmarkAuthorInput.value, // Include author in updated bookmark
         };
 
         chrome.storage.sync.get(['categories'], (data) => {
@@ -58,6 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     id: bookmarkId,
                     name: updatedBookmark.name,
                     tags: updatedBookmark.tags,
+                    author: updatedBookmark.author, // Include author in new bookmark
                     url: urlParams.get("url"),  // Keep the original URL
                     addedDate: urlParams.get("addedDate"),  // Keep the original added date
                 });

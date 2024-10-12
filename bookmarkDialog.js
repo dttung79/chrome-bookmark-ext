@@ -1,64 +1,57 @@
-document.addEventListener("DOMContentLoaded", () => {
+function generateUniqueId() {
+    return 'id-' + Math.random().toString(36).substr(2, 16);
+}
+document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
-    const pageTitle = urlParams.get("title");
-    const pageUrl = urlParams.get("url");
+    const title = urlParams.get('title');
+    const url = urlParams.get('url');
+    const author = urlParams.get('author'); // Get the author from URL parameters
 
-    const bookmarkNameInput = document.getElementById("bookmark-name");
-    const bookmarkCategorySelect = document.getElementById("bookmark-category");
-    const bookmarkTagsInput = document.getElementById("bookmark-tags");
-    const bookmarkForm = document.getElementById("bookmark-form");
+    document.getElementById('bookmark-name').value = title;
+    document.getElementById('bookmark-url').value = url; // Ensure this element exists in HTML
+    document.getElementById('bookmark-author').value = author; // Ensure this element exists in HTML
 
-    // Set the bookmark name (page title) in the input field
-    bookmarkNameInput.value = pageTitle || "";
-
-    // Populate categories into the dropdown
+    // Load categories from storage and populate the select element
     chrome.storage.sync.get(['categories'], (data) => {
         const categories = data.categories || [];
+        const categorySelect = document.getElementById('bookmark-category');
+        
         categories.forEach(category => {
-            const option = document.createElement("option");
+            const option = document.createElement('option');
             option.value = category.name;
             option.textContent = category.name;
-            bookmarkCategorySelect.appendChild(option);
+            categorySelect.appendChild(option);
         });
     });
 
-    // Generate default tags (e.g., from page title or URL)
-    const defaultTags = generateDefaultTags(pageTitle, pageUrl);
-    bookmarkTagsInput.value = defaultTags.join('; ');  // Separate default tags by semicolon
-
-    // Form submission: Save the bookmark with the original URL
-    bookmarkForm.addEventListener("submit", (e) => {
+    document.getElementById('bookmark-form').addEventListener('submit', (e) => {
         e.preventDefault();
+        const name = document.getElementById('bookmark-name').value;
+        const category = document.getElementById('bookmark-category').value;
+        const tags = document.getElementById('bookmark-tags').value.split(' ');
+        const author = document.getElementById('bookmark-author').value; // Get the author value
+
         const bookmark = {
             id: generateUniqueId(),
-            name: bookmarkNameInput.value,
-            url: pageUrl,  // Save the original URL here
-            category: bookmarkCategorySelect.value,
-            tags: bookmarkTagsInput.value.split(';').map(tag => tag.trim()),  // Separate tags by semicolon and trim whitespace
-            addedDate: new Date().toLocaleString()
+            name,
+            url,
+            category,
+            tags,
+            author, // Save the author information
+            addedDate: new Date().toISOString()
         };
 
         chrome.storage.sync.get(['categories'], (data) => {
             const categories = data.categories || [];
-            const category = categories.find(c => c.name === bookmark.category);
-            if (category) {
-                category.bookmarks.push(bookmark);
+            const categoryIndex = categories.findIndex(cat => cat.name === category);
+            if (categoryIndex !== -1) {
+                categories[categoryIndex].bookmarks.push(bookmark);
+            } else {
+                categories.push({ name: category, bookmarks: [bookmark] });
             }
             chrome.storage.sync.set({ categories }, () => {
-                window.close();  // Close the popup after saving
+                window.close();
             });
         });
     });
-
-    // Helper: Generate default tags from title or URL
-    function generateDefaultTags(title, url) {
-        const titleWords = title ? title.split(/\s+/) : [];
-        const domain = new URL(url).hostname.replace('www.', '');
-        return [...titleWords.slice(0, 3), domain];  // Limit title words to 3
-    }
-
-    // Helper: Generate a unique ID for each bookmark
-    function generateUniqueId() {
-        return '_' + Math.random().toString(36).substr(2, 9);
-    }
 });

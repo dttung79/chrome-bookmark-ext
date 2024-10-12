@@ -1,4 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Set popup size
+  document.body.style.width = 'auto';
+  document.body.style.height = 'auto';
+  document.body.style.minWidth = '200px';
+  document.body.style.minHeight = '150px';
+
   const browseCategoriesBtn = document.getElementById("browse-categories-btn");
   const addCategoryBtn = document.getElementById("add-category-btn");
   const searchBtn = document.getElementById("search-btn");
@@ -18,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Show Add Category Section and focus on the textbox
   addCategoryBtn.addEventListener("click", () => {
-      showSection("add-category");
+      showSection("add-category"); // Show the Add Category section
       newCategoryName.focus(); // Focus on the Add Category textbox
   });
 

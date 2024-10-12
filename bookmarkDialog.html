@@ -12,13 +12,16 @@
         <form id="bookmark-form">
             <label for="bookmark-name">Name:</label>
             <input type="text" id="bookmark-name" name="bookmark-name" />
-
+        
             <label for="bookmark-category">Category:</label>
             <select id="bookmark-category" name="bookmark-category"></select>
-
+        
             <label for="bookmark-tags">Tags:</label>
             <input type="text" id="bookmark-tags" name="bookmark-tags" placeholder="Enter tags separated by space" />
-
+            <input type="hidden" id="bookmark-url" name="bookmark-url" /> <!-- Hidden input for URL -->
+        
+            <input type="hidden" id="bookmark-author" name="bookmark-author" /> <!-- Hidden input for author -->
+        
             <button type="submit">Save Bookmark</button>
         </form>
     </div>
