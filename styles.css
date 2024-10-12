@@ -100,3 +100,39 @@ button:hover {
   max-width: 500px;
   /* Adjust based on your layout */
 }
+
+/* Edit Bookmark Section */
+#edit-bookmark {
+  display: none;
+}
+
+#edit-bookmark label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #34495e;
+}
+
+#edit-bookmark input[type="text"],
+#edit-bookmark select {
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box; /* Ensure padding and border are included in the width */
+}
+
+#edit-bookmark button {
+  padding: 10px;
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#edit-bookmark button:hover {
+  background-color: #27ae60;
+}

@@ -16,14 +16,12 @@
         <button id="add-category-btn" class="menu-btn">Add Category</button>
         <button id="search-btn" class="menu-btn">Search Bookmarks</button>
     </div>
-
     <!-- Browse Categories Section -->
     <div id="browse-categories" class="hidden">
         <h2>Browse Categories</h2>
         <ul id="category-list"></ul>
         <button id="back-btn">Back</button>
     </div>
-
     <!-- Add Category Section -->
     <div id="add-category" class="hidden">
         <h2>Add Category</h2>
@@ -32,13 +30,43 @@
         <button id="back-btn-add">Back</button>
         <p id="error-msg" class="hidden">Category name is required or already exists!</p>
     </div>
-
     <!-- Search Section -->
     <div id="search-bookmarks" class="hidden">
         <h2>Search Bookmarks</h2>
         <input type="text" id="search-tags" placeholder="Enter tags (separated by space)" />
         <ul id="search-results"></ul>
         <button id="back-btn-search">Back</button>
+    </div>
+    <!-- Edit Bookmark Section -->
+    <div id="edit-bookmark" class="hidden">
+        <h2>Edit Bookmark</h2>
+        <form id="edit-bookmark-form" style="display: flex; flex-direction: column; gap: 1rem;">
+            <div style="display: flex; flex-direction: column;">
+            <label for="edit-bookmark-name">Name:</label>
+            <input type="text" id="edit-bookmark-name" name="edit-bookmark-name" style="width: 95%; padding: 0.5rem; border-radius: 5px; border: 1px solid #ccc;" />
+            </div>
+
+            
+            <input type="hidden" id="edit-bookmark-url" name="edit-bookmark-url" style="width: 90%; padding: 0.5rem; border-radius: 5px; border: 1px solid #ccc;" />
+
+
+            <div style="display: flex; flex-direction: column;">
+            <label for="edit-bookmark-category">Category:</label>
+            <select id="edit-bookmark-category" name="edit-bookmark-category" style="width: 100%; padding: 0.5rem; border-radius: 5px; border: 1px solid #ccc;"></select>
+            </div>
+            
+            <div style="display: flex; flex-direction: column;">
+            <label for="edit-bookmark-tags">Tags:</label>
+            <input type="text" id="edit-bookmark-tags" name="edit-bookmark-tags" placeholder="Enter tags separated by semicolon" style="width: 95%; padding: 0.5rem; border-radius: 5px; border: 1px solid #ccc;" />
+            </div>
+
+            <input type="text" id="edit-bookmark-author" name="edit-bookmark-author" hidden />
+
+            <div style="display: flex; justify-content: space-between; width: 100%; gap: 1rem;">
+            <button type="submit" style="flex: 1; padding: 0.5rem; border-radius: 5px; border: none; background-color: #4CAF50; color: white;">Save</button>
+            <button type="button" id="cancel-edit" style="flex: 1; padding: 0.5rem; border-radius: 5px; border: none; background-color: #f44336; color: white;">Cancel</button>
+            </div>
+        </form>
     </div>
     <script src="utilities.js"></script> <!-- Must come first -->
     <script src="bookmarkOperations.js"></script>

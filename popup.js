@@ -47,3 +47,4 @@ document.addEventListener("DOMContentLoaded", () => {
   // Live Search bookmarks by tags
   searchTags.addEventListener("input", () => liveSearchBookmarks(searchTags.value.trim(), searchResults));
 });
+

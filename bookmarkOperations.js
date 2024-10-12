@@ -109,15 +109,70 @@ function displaySearchResults(bookmarks, searchResults) {
 
 // Edit bookmark
 function editBookmark(bookmark) {
-    // Open the new edit bookmark dialog with query parameters for prepopulation
-    const editUrl = `editBookmarkDialog.html?id=${bookmark.id}&url=${bookmark.url}&addedDate=${bookmark.addedDate}`;
-    chrome.windows.create({
-        url: editUrl,
-        type: "popup",
-        width: 400,
-        height: 400
+    const editSection = document.getElementById('edit-bookmark');
+    const editNameInput = document.getElementById('edit-bookmark-name');
+    const editUrlInput = document.getElementById('edit-bookmark-url');
+    const editAuthorInput = document.getElementById('edit-bookmark-author');
+    const editTagsInput = document.getElementById('edit-bookmark-tags');
+    const editCategorySelect = document.getElementById('edit-bookmark-category');
+
+    // Populate the form with the current bookmark data
+    editNameInput.value = bookmark.name;
+    editUrlInput.value = bookmark.url;
+    editAuthorInput.value = bookmark.author;
+    editTagsInput.value = bookmark.tags.join('; ');
+
+    // Populate the category dropdown
+    chrome.storage.sync.get(['categories'], (data) => {
+        const categories = data.categories || [];
+        editCategorySelect.innerHTML = ''; // Clear existing options
+        categories.forEach(category => {
+            const option = document.createElement('option');
+            option.value = category.name;
+            option.textContent = category.name;
+            if (category.bookmarks.some(b => b.id === bookmark.id)) {
+                option.selected = true;
+            }
+            editCategorySelect.appendChild(option);
+        });
     });
+
+    // Show the edit section
+    editSection.classList.remove('hidden');
 }
+
+// Save the edited bookmark
+document.getElementById('edit-bookmark-form').addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const bookmarkId = document.getElementById('edit-bookmark-author').value;
+    const updatedBookmark = {
+        id: bookmarkId,
+        name: document.getElementById('edit-bookmark-name').value,
+        url: document.getElementById('edit-bookmark-url').value,
+        author: document.getElementById('edit-bookmark-author').value,
+        tags: document.getElementById('edit-bookmark-tags').value.split(';').map(tag => tag.trim())
+    };
+
+    chrome.storage.sync.get(['categories'], (data) => {
+        const categories = data.categories || [];
+        categories.forEach(category => {
+            category.bookmarks = category.bookmarks.map(b => b.id === bookmarkId ? updatedBookmark : b);
+        });
+
+        chrome.storage.sync.set({ categories }, () => {
+            // Hide the edit section
+            document.getElementById('edit-bookmark').classList.add('hidden');
+            // Optionally, refresh the displayed bookmarks
+            displayCategories();
+        });
+    });
+});
+
+// Cancel editing
+document.getElementById('cancel-edit').addEventListener('click', () => {
+    document.getElementById('edit-bookmark').classList.add('hidden');
+});
 
 // Delete bookmark
 function deleteBookmark(bookmarkId) {
