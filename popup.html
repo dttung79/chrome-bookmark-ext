@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <!-- Font Awesome for Edit and Delete Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
+
 <body>
     <!-- Main Menu -->
     <div id="main">
@@ -37,35 +39,44 @@
         <ul id="search-results"></ul>
         <button id="back-btn-search">Back</button>
     </div>
-    <!-- Edit Bookmark Section -->
     <div id="edit-bookmark" class="hidden">
         <h2>Edit Bookmark</h2>
-        <form id="edit-bookmark-form" style="display: flex; flex-direction: column; gap: 1rem;">
-            <div style="display: flex; flex-direction: column;">
-            <label for="edit-bookmark-name">Name:</label>
-            <input type="text" id="edit-bookmark-name" name="edit-bookmark-name" style="width: 95%; padding: 0.5rem; border-radius: 5px; border: 1px solid #ccc;" />
+        <form id="edit-bookmark-form">
+            <div>
+                <label for="edit-bookmark-name">Name:</label>
+                <input type="text" id="edit-bookmark-name" name="edit-bookmark-name" />
+                <!-- <label for="edit-bookmark-url">URL:</label> -->
+                <input type="hidden" id="edit-bookmark-url" name="edit-bookmark-url" />
+                <!-- <label for="edit-bookmark-author">Author:</label> -->
+                <input type="hidden" id="edit-bookmark-author" name="edit-bookmark-author" />
             </div>
-
-            
-            <input type="hidden" id="edit-bookmark-url" name="edit-bookmark-url" style="width: 90%; padding: 0.5rem; border-radius: 5px; border: 1px solid #ccc;" />
+            <div>
+                <label for="edit-bookmark-category">Category:</label>
+                <select id="edit-bookmark-category" name="edit-bookmark-category"></select>
+            </div>
+            <div>
+                <label for="edit-bookmark-tags">Tags:</label>
+                <input type="text" id="edit-bookmark-tags" name="edit-bookmark-tags" />
+            </div>
             <input type="hidden" id="edit-bookmark-id" name="edit-bookmark-id" />
-
-
-            <div style="display: flex; flex-direction: column;">
-            <label for="edit-bookmark-category">Category:</label>
-            <select id="edit-bookmark-category" name="edit-bookmark-category" style="width: 100%; padding: 0.5rem; border-radius: 5px; border: 1px solid #ccc;"></select>
+            <div>
+                <button type="submit">Save</button>
+                <button type="button" id="cancel-edit-bookmark">Cancel</button>
             </div>
-            
-            <div style="display: flex; flex-direction: column;">
-            <label for="edit-bookmark-tags">Tags:</label>
-            <input type="text" id="edit-bookmark-tags" name="edit-bookmark-tags" placeholder="Enter tags separated by semicolon" style="width: 95%; padding: 0.5rem; border-radius: 5px; border: 1px solid #ccc;" />
+        </form>
+    </div>
+    <!-- Edit Category Section -->
+    <div id="edit-category" class="hidden">
+        <h2>Edit Category</h2>
+        <form id="edit-category-form">
+            <div>
+                <label for="edit-category-name">Category Name:</label>
+                <input type="text" id="edit-category-name" name="edit-category-name" />
             </div>
-
-            <input type="text" id="edit-bookmark-author" name="edit-bookmark-author" hidden />
-
-            <div style="display: flex; justify-content: space-between; width: 100%; gap: 1rem;">
-            <button type="submit" style="flex: 1; padding: 0.5rem; border-radius: 5px; border: none; background-color: #4CAF50; color: white;">Save</button>
-            <button type="button" id="cancel-edit" style="flex: 1; padding: 0.5rem; border-radius: 5px; border: none; background-color: #f44336; color: white;">Cancel</button>
+            <input type="hidden" id="edit-category-old-name" name="edit-category-old-name" />
+            <div>
+                <button type="submit">Save</button>
+                <button type="button" id="cancel-edit-category">Cancel</button>
             </div>
         </form>
     </div>
@@ -74,4 +85,5 @@
     <script src="categoryOperations.js"></script>
     <script src="popup.js"></script>
 </body>
+
 </html>

@@ -110,7 +110,6 @@ function displaySearchResults(bookmarks, searchResults) {
     });
 }
 
-// Edit bookmark
 function editBookmark(bookmark) {
     const editSection = document.getElementById('edit-bookmark');
     const editNameInput = document.getElementById('edit-bookmark-name');
@@ -118,13 +117,21 @@ function editBookmark(bookmark) {
     const editAuthorInput = document.getElementById('edit-bookmark-author');
     const editTagsInput = document.getElementById('edit-bookmark-tags');
     const editCategorySelect = document.getElementById('edit-bookmark-category');
+    const editBookmarkId = document.getElementById('edit-bookmark-id');
+
+    // Check if all required elements exist
+    if (!editSection || !editNameInput || !editUrlInput || !editAuthorInput || 
+        !editTagsInput || !editCategorySelect || !editBookmarkId) {
+        console.error('One or more edit form elements are missing');
+        return;
+    }
 
     // Populate the form with the current bookmark data
     editNameInput.value = bookmark.name;
     editUrlInput.value = bookmark.url;
     editAuthorInput.value = bookmark.author;
     editTagsInput.value = bookmark.tags.join('; ');
-    document.getElementById('edit-bookmark-id').value = bookmark.id;
+    editBookmarkId.value = bookmark.id;
 
     // Populate the category dropdown
     chrome.storage.sync.get(['categories'], (data) => {
@@ -163,26 +170,29 @@ document.getElementById('edit-bookmark-form').addEventListener('submit', (event)
     chrome.storage.sync.get(['categories'], (data) => {
         const categories = data.categories || [];
         let bookmarkUpdated = false;
-
+    
         const updatedCategories = categories.map(category => {
-            const updatedBookmarks = category.bookmarks.map(b => {
-                if (b.id === bookmarkId) {
-                    bookmarkUpdated = true;
-                    return updatedBookmark;
-                }
-                return b;
-            });
-
             if (category.name === newCategory) {
-                if (!bookmarkUpdated) {
-                    updatedBookmarks.push(updatedBookmark);
+                // If this is the new category, add the bookmark if it's not already there
+                const existingBookmarkIndex = category.bookmarks.findIndex(b => b.id === bookmarkId);
+                if (existingBookmarkIndex === -1) {
+                    category.bookmarks.push(updatedBookmark);
+                } else {
+                    category.bookmarks[existingBookmarkIndex] = updatedBookmark;
                 }
-                return { ...category, bookmarks: updatedBookmarks };
+                bookmarkUpdated = true;
+                return { ...category, bookmarks: category.bookmarks };
             } else {
-                return { ...category, bookmarks: updatedBookmarks.filter(b => b.id !== bookmarkId) };
+                // For other categories, remove the bookmark if it exists
+                return { ...category, bookmarks: category.bookmarks.filter(b => b.id !== bookmarkId) };
             }
         });
-
+    
+        // If the bookmark wasn't found in any existing category, create a new one
+        if (!bookmarkUpdated) {
+            updatedCategories.push({ name: newCategory, bookmarks: [updatedBookmark] });
+        }
+    
         chrome.storage.sync.set({ categories: updatedCategories }, () => {
             document.getElementById('edit-bookmark').classList.add('hidden');
             displayCategories();
@@ -191,8 +201,13 @@ document.getElementById('edit-bookmark-form').addEventListener('submit', (event)
 });
 
 // Cancel editing
-document.getElementById('cancel-edit').addEventListener('click', () => {
-    document.getElementById('edit-bookmark').classList.add('hidden');
+document.addEventListener("DOMContentLoaded", () => {
+    const cancelEditButton = document.getElementById('cancel-edit-bookmark');
+    if (cancelEditButton) {
+        cancelEditButton.addEventListener('click', () => {
+            document.getElementById('edit-bookmark').classList.add('hidden');
+        });
+    }
 });
 
 // Delete bookmark

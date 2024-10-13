@@ -152,3 +152,188 @@ button:hover {
 .bookmark-actions button:hover {
     color: #2c3e50; /* Darken on hover */
 }
+/* Category item styles */
+.category-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.category-item:hover {
+    background-color: #ecf0f1;
+}
+
+.category-name {
+    cursor: pointer;
+    flex-grow: 1;
+}
+
+.category-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.category-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #7f8c8d;
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+}
+
+.category-actions button:hover {
+    color: #2c3e50;
+}
+
+/* Edit Category styles */
+#edit-category {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#edit-category h2 {
+    margin-top: 0;
+    color: #2c3e50;
+    text-align: center;
+}
+
+#edit-category-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#edit-category-form div {
+    display: flex;
+    flex-direction: column;
+}
+
+#edit-category-form label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #34495e;
+}
+
+#edit-category-form input[type="text"] {
+    width: 95%;
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+#edit-category-form div:last-child {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    gap: 1rem;
+}
+
+#edit-category-form button {
+    flex: 1;
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#edit-category-form button[type="submit"] {
+    background-color: #4CAF50;
+}
+
+#edit-category-form button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+#edit-category-form button[type="button"] {
+    background-color: #f44336;
+}
+
+#edit-category-form button[type="button"]:hover {
+    background-color: #d32f2f;
+}
+
+/* Edit Bookmark styles */
+#edit-bookmark {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#edit-bookmark h2 {
+    margin-top: 0;
+    color: #2c3e50;
+    text-align: center;
+}
+
+#edit-bookmark-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#edit-bookmark-form div {
+    display: flex;
+    flex-direction: column;
+}
+
+#edit-bookmark-form label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #34495e;
+}
+
+#edit-bookmark-form input[type="text"],
+#edit-bookmark-form select {
+    width: 95%;
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+#edit-bookmark-form div:last-child {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    gap: 1rem;
+}
+
+#edit-bookmark-form button {
+    flex: 1;
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#edit-bookmark-form button[type="submit"] {
+    background-color: #4CAF50;
+}
+
+#edit-bookmark-form button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+#edit-bookmark-form button[type="button"] {
+    background-color: #f44336;
+}
+
+#edit-bookmark-form button[type="button"]:hover {
+    background-color: #d32f2f;
+}
