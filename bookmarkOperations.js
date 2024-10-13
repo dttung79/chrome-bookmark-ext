@@ -76,8 +76,9 @@ function showBookmarksForCategory(categoryName) {
 }
 
 // Live Search bookmarks by tags
+// Live Search bookmarks by tags
 function liveSearchBookmarks(searchQuery, searchResults) {
-    const tags = searchQuery.split(';').map(tag => tag.trim().toLowerCase());  // Separate input by semicolon and convert to lowercase
+    const tags = searchQuery.split(' ').map(tag => tag.trim().toLowerCase());
     if (tags.length === 0 || tags[0] === '') {
         searchResults.innerHTML = ''; // Clear search results if no tags are entered
         return;
@@ -88,8 +89,10 @@ function liveSearchBookmarks(searchQuery, searchResults) {
         const matchedBookmarks = [];
         categories.forEach(category => {
             category.bookmarks.forEach(bookmark => {
-                const bookmarkTags = bookmark.tags.map(tag => tag.toLowerCase());  // Convert bookmark tags to lowercase
-                if (tags.every(tag => bookmarkTags.includes(tag))) {
+                const bookmarkTags = bookmark.tags.map(tag => tag.toLowerCase());
+                if (tags.every(searchTag =>
+                    bookmarkTags.some(bookmarkTag => bookmarkTag.includes(searchTag))
+                )) {
                     matchedBookmarks.push(bookmark);
                 }
             });
@@ -121,6 +124,7 @@ function editBookmark(bookmark) {
     editUrlInput.value = bookmark.url;
     editAuthorInput.value = bookmark.author;
     editTagsInput.value = bookmark.tags.join('; ');
+    document.getElementById('edit-bookmark-id').value = bookmark.id;
 
     // Populate the category dropdown
     chrome.storage.sync.get(['categories'], (data) => {
@@ -145,7 +149,7 @@ function editBookmark(bookmark) {
 document.getElementById('edit-bookmark-form').addEventListener('submit', (event) => {
     event.preventDefault();
 
-    const bookmarkId = document.getElementById('edit-bookmark-author').value;
+    const bookmarkId = document.getElementById('edit-bookmark-id').value;
     const updatedBookmark = {
         id: bookmarkId,
         name: document.getElementById('edit-bookmark-name').value,
@@ -154,16 +158,33 @@ document.getElementById('edit-bookmark-form').addEventListener('submit', (event)
         tags: document.getElementById('edit-bookmark-tags').value.split(';').map(tag => tag.trim())
     };
 
+    const newCategory = document.getElementById('edit-bookmark-category').value;
+
     chrome.storage.sync.get(['categories'], (data) => {
         const categories = data.categories || [];
-        categories.forEach(category => {
-            category.bookmarks = category.bookmarks.map(b => b.id === bookmarkId ? updatedBookmark : b);
+        let bookmarkUpdated = false;
+
+        const updatedCategories = categories.map(category => {
+            const updatedBookmarks = category.bookmarks.map(b => {
+                if (b.id === bookmarkId) {
+                    bookmarkUpdated = true;
+                    return updatedBookmark;
+                }
+                return b;
+            });
+
+            if (category.name === newCategory) {
+                if (!bookmarkUpdated) {
+                    updatedBookmarks.push(updatedBookmark);
+                }
+                return { ...category, bookmarks: updatedBookmarks };
+            } else {
+                return { ...category, bookmarks: updatedBookmarks.filter(b => b.id !== bookmarkId) };
+            }
         });
 
-        chrome.storage.sync.set({ categories }, () => {
-            // Hide the edit section
+        chrome.storage.sync.set({ categories: updatedCategories }, () => {
             document.getElementById('edit-bookmark').classList.add('hidden');
-            // Optionally, refresh the displayed bookmarks
             displayCategories();
         });
     });
@@ -176,9 +197,11 @@ document.getElementById('cancel-edit').addEventListener('click', () => {
 
 // Delete bookmark
 function deleteBookmark(bookmarkId) {
-    chrome.runtime.sendMessage({ action: 'deleteBookmark', bookmarkId }, (response) => {
-        if (response.success) {
-            displayCategories();
-        }
-    });
+    if (confirm('Are you sure you want to delete this bookmark?')) {
+        chrome.runtime.sendMessage({ action: 'deleteBookmark', bookmarkId }, (response) => {
+            if (response.success) {
+                displayCategories();
+            }
+        });
+    }
 }
