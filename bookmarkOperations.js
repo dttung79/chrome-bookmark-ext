@@ -1,81 +1,117 @@
 // Helper function to create a bookmark list item
-function createBookmarkListItem(bookmark) {
-    const li = document.createElement("li");
-    li.classList.add("bookmark-item");
+function createBookmarkTableRow(bookmark) {
+    const tr = document.createElement("tr");
 
-    // Create a link for the author
+    // Author column
+    const authorTd = document.createElement("td");
+    authorTd.classList.add("author-column");
     const authorLink = document.createElement("a");
     authorLink.textContent = truncateText(bookmark.author, 15);
     authorLink.href = `https://x.com/${bookmark.author}`;
-    authorLink.target = "_blank";  // Open in a new tab
-    authorLink.title = bookmark.author;  // Show full name on hover
-    authorLink.className = 'author-link'; // Add a class for CSS styling
+    authorLink.target = "_blank";
+    authorLink.title = bookmark.author;
+    authorTd.appendChild(authorLink);
 
-    // Create a separator with spaces
-    const separator = document.createTextNode(" | ");
-
-    // Create a link for the bookmark name
+    // Post column
+    const postTd = document.createElement("td");
+    postTd.classList.add("post-column");
     const nameLink = document.createElement("a");
     nameLink.textContent = truncateText(bookmark.name, 50);
     nameLink.href = bookmark.url;
-    nameLink.target = "_blank";  // Open in a new tab
-    nameLink.title = bookmark.name;  // Show full name on hover
-    nameLink.className = 'name-link'; // Add a class for CSS styling
+    nameLink.target = "_blank";
+    nameLink.title = bookmark.name;
+    postTd.appendChild(nameLink);
 
-    li.appendChild(authorLink);  // Add the author link to the list item
-    li.appendChild(separator);  // Add the separator to the list item
-    li.appendChild(nameLink);  // Add the name link to the list item
-
-    // alert html of li
-    //alert(li.outerHTML);
-
-    // Create the action container for edit and delete buttons
+    // Actions column
+    const actionsTd = document.createElement("td");
+    actionsTd.classList.add("actions-column");
     const actionContainer = document.createElement("div");
     actionContainer.classList.add("bookmark-actions");
 
-    // Edit button (pencil icon)
+    // Edit button
     const editBtn = document.createElement("button");
-    editBtn.innerHTML = `<i class="fas fa-edit"></i>`; // Font Awesome Edit icon
+    editBtn.innerHTML = `<i class="fas fa-edit"></i>`;
     editBtn.addEventListener("click", (e) => {
-        e.stopPropagation();  // Prevent the URL from opening
-        editBookmark(bookmark);  // Open the edit dialog
+        e.stopPropagation();
+        editBookmark(bookmark);
     });
 
-    // Delete button (trash icon)
+    // Delete button
     const deleteBtn = document.createElement("button");
-    deleteBtn.innerHTML = `<i class="fas fa-trash"></i>`; // Font Awesome Delete icon
+    deleteBtn.innerHTML = `<i class="fas fa-trash"></i>`;
     deleteBtn.addEventListener("click", (e) => {
-        e.stopPropagation();  // Prevent the URL from opening
-        deleteBookmark(bookmark.id);  // Delete the bookmark
+        e.stopPropagation();
+        deleteBookmark(bookmark.id);
     });
 
-    // Append edit and delete buttons to the action container
     actionContainer.appendChild(editBtn);
     actionContainer.appendChild(deleteBtn);
+    actionsTd.appendChild(actionContainer);
 
-    // Append the action container to the list item
-    li.appendChild(actionContainer);
+    tr.appendChild(authorTd);
+    tr.appendChild(postTd);
+    tr.appendChild(actionsTd);
 
-    return li;
+    return tr;
 }
-
-// Display bookmarks for a specific category
 function showBookmarksForCategory(categoryName) {
     chrome.storage.sync.get(['categories'], (data) => {
         const categories = data.categories || [];
         const category = categories.find(c => c.name === categoryName);
         if (category) {
+            const table = document.createElement("table");
+            table.classList.add("bookmark-table");
             const categoryList = document.getElementById("category-list");
-            categoryList.innerHTML = "";
+            const thead = document.createElement("thead");
+            thead.innerHTML = `
+                <tr>
+                    <th>Author</th>
+                    <th>Post</th>
+                    <th>Actions</th>
+                </tr>
+            `;
+            table.appendChild(thead);
+            
+            const tbody = document.createElement("tbody");
             category.bookmarks.forEach(bookmark => {
-                const li = createBookmarkListItem(bookmark);
-                categoryList.appendChild(li);
+                const tr = createBookmarkTableRow(bookmark);
+                tbody.appendChild(tr);
             });
+            table.appendChild(tbody);
+            
+            categoryList.appendChild(table);
+            resizePopup(); // Add this line
         }
     });
 }
 
-// Live Search bookmarks by tags
+function displaySearchResults(bookmarks, searchResults) {
+    searchResults.innerHTML = "";
+    
+    const table = document.createElement("table");
+    table.classList.add("bookmark-table");
+    
+    const thead = document.createElement("thead");
+    thead.innerHTML = `
+        <tr>
+            <th>Author</th>
+            <th>Post</th>
+            <th>Actions</th>
+        </tr>
+    `;
+    table.appendChild(thead);
+    
+    const tbody = document.createElement("tbody");
+    bookmarks.forEach(bookmark => {
+        const tr = createBookmarkTableRow(bookmark);
+        tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+    
+    searchResults.appendChild(table);
+    resizePopup(); // Add this line
+}
+
 // Live Search bookmarks by tags
 function liveSearchBookmarks(searchQuery, searchResults) {
     const tags = searchQuery.split(' ').map(tag => tag.trim().toLowerCase());
@@ -104,10 +140,29 @@ function liveSearchBookmarks(searchQuery, searchResults) {
 // Display search results for bookmarks
 function displaySearchResults(bookmarks, searchResults) {
     searchResults.innerHTML = "";
+    
+    const table = document.createElement("table");
+    table.classList.add("bookmark-table");
+    
+    const thead = document.createElement("thead");
+    thead.innerHTML = `
+        <tr>
+            <th>Author</th>
+            <th>Post</th>
+            <th>Actions</th>
+        </tr>
+    `;
+    table.appendChild(thead);
+    
+    const tbody = document.createElement("tbody");
     bookmarks.forEach(bookmark => {
-        const li = createBookmarkListItem(bookmark);
-        searchResults.appendChild(li);
+        const tr = createBookmarkTableRow(bookmark);
+        tbody.appendChild(tr);
     });
+    table.appendChild(tbody);
+    
+    searchResults.appendChild(table);
+    resizePopup(); // Add this line
 }
 
 function editBookmark(bookmark) {

@@ -56,10 +56,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         return true;
     }
 
-    if (message.action === 'resizePopup' && categoriesWindowId) {
-        chrome.windows.update(categoriesWindowId, {
-            width: message.width,
-            height: message.height
+    if (message.action === 'resizePopup') {
+        chrome.windows.getCurrent((window) => {
+            chrome.windows.update(window.id, {
+                width: message.width,
+                height: message.height
+            });
         });
     }
 });

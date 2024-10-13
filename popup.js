@@ -48,3 +48,18 @@ document.addEventListener("DOMContentLoaded", () => {
   searchTags.addEventListener("input", () => liveSearchBookmarks(searchTags.value.trim(), searchResults));
 });
 
+function resizePopup() {
+    const body = document.body;
+    const html = document.documentElement;
+
+    const height = Math.max(body.scrollHeight, body.offsetHeight, 
+                            html.clientHeight, html.scrollHeight, html.offsetHeight);
+    const width = Math.max(body.scrollWidth, body.offsetWidth, 
+                           html.clientWidth, html.scrollWidth, html.offsetWidth);
+
+    chrome.runtime.sendMessage({
+        action: 'resizePopup',
+        width: Math.min(1000, width + 40), // Increase max width to 1000px and add more padding
+        height: Math.min(800, height + 40) // Increase max height to 800px and add more padding
+    });
+}

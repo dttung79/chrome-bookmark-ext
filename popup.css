@@ -48,7 +48,7 @@ button {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
-    background-color: #2ecc71;
+    background-color: #3498db;
     color: white;
     border: none;
     border-radius: 5px;
@@ -57,7 +57,7 @@ button {
 }
 
 button:hover {
-    background-color: #27ae60;
+    background-color: #2980b9;
 }
 
 #category-list, #search-results {
@@ -67,71 +67,67 @@ button:hover {
 
 #category-list li, #search-results li {
     padding: 10px;
-    background-color: #ecf0f1;
+    background-color: #f4f4f4;
     margin: 5px 0;
     border-radius: 5px;
 }
 
 #category-list li:hover, #search-results li:hover {
-    background-color: #bdc3c7;
+    background-color: #e0e0e0;
 }
 
 #error-msg {
-    color: red;
+    color: #e74c3c;
     text-align: center;
     font-size: 14px;
 }
+
 /* Bookmark items should look like hyperlinks */
 .bookmark-item a {
     text-decoration: none;
-    color: #3498db;
+    color: #2c3e50;
     cursor: pointer;
 }
 
 .bookmark-item a:hover {
-    text-decoration: underline; /* Underline on hover */
+    text-decoration: underline;
 }
 
 /* Highlight the entire bookmark item when hovered */
 .bookmark-item:hover {
-    background-color: #ecf0f1; /* Light gray background on hover */
+    background-color: #e0e0e0;
     border-radius: 4px;
     transition: background-color 0.2s ease;
 }
+
 /* Bookmark item link styles */
 .bookmark-item a {
-    text-decoration: none;  /* Remove underline */
-    color: #3498db;
-    cursor: pointer;        /* Show pointer cursor on hover */
-    white-space: nowrap;    /* Prevent the text from wrapping */
-    overflow: hidden;       /* Hide the overflow */
-    text-overflow: ellipsis; /* Show "..." for overflowing text */
-    text-align: left;       /* Align text to the left */
+    text-decoration: none;
+    color: #2c3e50;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
 }
 
 .bookmark-item a:hover {
-    text-decoration: underline; /* Underline on hover */
+    text-decoration: underline;
 }
 
-/* Highlight the entire bookmark item when hovered */
-.bookmark-item:hover {
-    background-color: #ecf0f1; /* Light gray background on hover */
-    border-radius: 4px;
-    transition: background-color 0.2s ease;
-}
 /* Ensure the bookmark item and buttons are aligned in a single line */
 .bookmark-item {
-    display: flex;                      /* Use flexbox for layout */
-    justify-content: space-between;     /* Space between items */
-    align-items: left;                /* Left vertically */
-    padding: 8px;                   /* Add padding */
-    border-radius: 4px;             /* Rounded corners */             
-    margin-bottom: 5px;             /* Add space between items */
-    transition: background-color 0.2s ease; /* Smooth background transition */
+    display: flex;
+    justify-content: space-between;
+    align-items: left;
+    padding: 8px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    transition: background-color 0.2s ease;
 }
 
 .bookmark-item:hover {
-    background-color: #ecf0f1; /* Highlight background on hover */
+    background-color: #e0e0e0;
 }
 
 .bookmark-actions {
@@ -150,8 +146,9 @@ button:hover {
 }
 
 .bookmark-actions button:hover {
-    color: #2c3e50; /* Darken on hover */
+    color: #3498db;
 }
+
 /* Category item styles */
 .category-item {
     display: flex;
@@ -164,7 +161,7 @@ button:hover {
 }
 
 .category-item:hover {
-    background-color: #ecf0f1;
+    background-color: #e0e0e0;
 }
 
 .category-name {
@@ -188,7 +185,7 @@ button:hover {
 }
 
 .category-actions button:hover {
-    color: #2c3e50;
+    color: #3498db;
 }
 
 /* Edit Category styles */
@@ -249,19 +246,19 @@ button:hover {
 }
 
 #edit-category-form button[type="submit"] {
-    background-color: #4CAF50;
+    background-color: #3498db;
 }
 
 #edit-category-form button[type="submit"]:hover {
-    background-color: #45a049;
+    background-color: #2980b9;
 }
 
 #edit-category-form button[type="button"] {
-    background-color: #f44336;
+    background-color: #e74c3c;
 }
 
 #edit-category-form button[type="button"]:hover {
-    background-color: #d32f2f;
+    background-color: #c0392b;
 }
 
 /* Edit Bookmark styles */
@@ -323,17 +320,99 @@ button:hover {
 }
 
 #edit-bookmark-form button[type="submit"] {
-    background-color: #4CAF50;
+    background-color: #3498db;
 }
 
 #edit-bookmark-form button[type="submit"]:hover {
-    background-color: #45a049;
+    background-color: #2980b9;
 }
 
 #edit-bookmark-form button[type="button"] {
-    background-color: #f44336;
+    background-color: #e74c3c;
 }
 
 #edit-bookmark-form button[type="button"]:hover {
-    background-color: #d32f2f;
+    background-color: #c0392b;
+}
+
+/* Bookmark table styles */
+.bookmark-table {
+    width: 450px;
+    border-collapse: collapse;
+    margin-top: 10px;
+    table-layout: auto; /* Ensure columns maintain consistent width */
+}
+
+.bookmark-table th,
+.bookmark-table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.bookmark-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.bookmark-table tr:hover {
+    background-color: #f9f9f9;
+}
+
+.bookmark-table .author-column {
+    width: 90px;
+    color: #3498db;
+    font-weight: bold;
+}
+
+.bookmark-table .post-column {
+    width: 315px;
+    color: #2c3e50;
+}
+
+.bookmark-table .actions-column {
+    width: 10px;
+    text-align: center;
+}
+
+.bookmark-table .edit-column button,
+.bookmark-table .delete-column button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-size: 16px;
+}
+
+.bookmark-table .edit-column button:hover,
+.bookmark-table .delete-column button:hover {
+    color: #3498db;
+}
+
+.bookmark-table a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bookmark-table a:hover {
+    text-decoration: underline;
+}
+
+#category-list, #search-results {
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+@media (min-width: 768px) {
+    .bookmark-table {
+        min-width: 600px;
+    }
 }
