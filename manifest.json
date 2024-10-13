@@ -24,7 +24,6 @@
       "description": "Bookmark the current page"
     }
   },
-  "options_page": "settings.html",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
