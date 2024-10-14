@@ -55,15 +55,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         });
         return true;
     }
-
-    if (message.action === 'resizePopup') {
-        chrome.windows.getCurrent((window) => {
-            chrome.windows.update(window.id, {
-                width: message.width,
-                height: message.height
-            });
-        });
-    }
 });
 
 let categoriesWindowId = null;

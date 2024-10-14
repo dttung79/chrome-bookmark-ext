@@ -62,6 +62,7 @@ function showBookmarksForCategory(categoryName) {
             const table = document.createElement("table");
             table.classList.add("bookmark-table");
             const categoryList = document.getElementById("category-list");
+            categoryList.innerHTML = "";    // hide category section
             const thead = document.createElement("thead");
             thead.innerHTML = `
                 <tr>
@@ -80,7 +81,6 @@ function showBookmarksForCategory(categoryName) {
             table.appendChild(tbody);
             
             categoryList.appendChild(table);
-            resizePopup(); // Add this line
         }
     });
 }
@@ -109,7 +109,6 @@ function displaySearchResults(bookmarks, searchResults) {
     table.appendChild(tbody);
     
     searchResults.appendChild(table);
-    resizePopup(); // Add this line
 }
 
 // Live Search bookmarks by tags
@@ -162,7 +161,6 @@ function displaySearchResults(bookmarks, searchResults) {
     table.appendChild(tbody);
     
     searchResults.appendChild(table);
-    resizePopup(); // Add this line
 }
 
 function editBookmark(bookmark) {
