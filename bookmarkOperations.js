@@ -136,33 +136,6 @@ function liveSearchBookmarks(searchQuery, searchResults) {
     });
 }
 
-// Display search results for bookmarks
-function displaySearchResults(bookmarks, searchResults) {
-    searchResults.innerHTML = "";
-    
-    const table = document.createElement("table");
-    table.classList.add("bookmark-table");
-    
-    const thead = document.createElement("thead");
-    thead.innerHTML = `
-        <tr>
-            <th>Author</th>
-            <th>Post</th>
-            <th>Actions</th>
-        </tr>
-    `;
-    table.appendChild(thead);
-    
-    const tbody = document.createElement("tbody");
-    bookmarks.forEach(bookmark => {
-        const tr = createBookmarkTableRow(bookmark);
-        tbody.appendChild(tr);
-    });
-    table.appendChild(tbody);
-    
-    searchResults.appendChild(table);
-}
-
 function editBookmark(bookmark) {
     const editSection = document.getElementById('edit-bookmark');
     const editNameInput = document.getElementById('edit-bookmark-name');

@@ -6,11 +6,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const title = urlParams.get('title');
     const url = urlParams.get('url');
     const author = urlParams.get('author'); // Get the author from URL parameters
+    const tags = urlParams.get('tags'); // Get the tags from URL parameters
 
     document.getElementById('bookmark-name').value = title;
     document.getElementById('bookmark-url').value = url; // Ensure this element exists in HTML
     document.getElementById('bookmark-author').value = author; // Ensure this element exists in HTML
-
+    document.getElementById('bookmark-tags').value = tags; // Ensure this element exists in HTML
     // Load categories from storage and populate the select element
     chrome.storage.sync.get(['categories'], (data) => {
         const categories = data.categories || [];
