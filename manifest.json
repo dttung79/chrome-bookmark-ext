@@ -30,6 +30,6 @@
     "128": "icons/icon128.png"
   },
   "host_permissions": [
-    "https://xmarkbe.onrender.com//*"
+    "https://xmarkbe.onrender.com/*"
   ]
 }

@@ -7,8 +7,12 @@
     <link rel="stylesheet" href="dialog.css">
 </head>
 <body>
-    <div id="bookmark-dialog">
+   
+    <div id="bookmark-dialog" class="hidden">
         <h2>Add Bookmark</h2>
+        <div id="loading-dialog" class="hidden">
+            <p>Loading data. Please wait ...</p>
+        </div>
         <form id="bookmark-form">
             <label for="bookmark-name">Name:</label>
             <input type="text" id="bookmark-name" name="bookmark-name" />

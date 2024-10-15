@@ -52,3 +52,4 @@ button {
 button:hover {
     background-color: #27ae60;
 }
+#loading-dialog { max-width: 300px; margin: 0 auto; color: #3498db; text-align: center;}
