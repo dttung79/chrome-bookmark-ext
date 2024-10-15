@@ -416,3 +416,21 @@ button:hover {
         min-width: 600px;
     }
 }
+/* Payment Links */
+.links {
+    margin-top: 10px;
+    text-align: center; /* Center the links */
+}
+
+.link {
+    display: inline-block;
+    margin: 5px 10px;
+    color: #3498db; /* Link color */
+    text-decoration: none; /* Remove underline */
+    font-size: 14px; /* Font size */
+}
+
+.link:hover {
+    text-decoration: underline; /* Underline on hover */
+    color: #2980b9; /* Darker shade on hover */
+}
